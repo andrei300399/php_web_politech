@@ -1,0 +1,44 @@
+body {
+   margin: 0 auto;
+}
+
+div {
+   font-family: Tahoma;
+   font-size: 10px;
+   color: #7E7E76;
+}
+
+a {
+   font-family: Tahoma;
+   font-size: 14px;
+   color: #000000;
+   text-decoration: none
+}
+
+a:hover {
+   color: #7C0000;
+}
+
+header {
+   background-color: rgb(150, 219, 219);
+}
+
+nav ul {
+   display: flex;
+   justify-content: space-around;
+}
+
+nav ul li,
+footer ul li {
+   list-style: none;
+}
+
+footer {
+   background-color: rgb(33, 153, 153);
+
+}
+
+.footer-bottom {
+   font-size: 20px;
+   color: #7C0000;
+}
