@@ -1,18 +1,12 @@
 body {
    margin: 0 auto;
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
 }
 
-div {
-   font-family: Tahoma;
-   font-size: 10px;
-   color: #7E7E76;
-}
-
-a {
-   font-family: Tahoma;
-   font-size: 14px;
-   color: #000000;
-   text-decoration: none
+nav {
+   text-align: center;
 }
 
 a:hover {
@@ -35,10 +29,21 @@ footer ul li {
 
 footer {
    background-color: rgb(33, 153, 153);
+   text-align: center;
 
 }
 
 .footer-bottom {
    font-size: 20px;
    color: #7C0000;
+}
+
+.error-message {
+   font-size: 18px;
+   color: red;
+}
+
+.content {
+   text-align: center;
+   flex: 1;
 }

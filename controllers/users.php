@@ -25,10 +25,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonLogin'])){
             userAuth($existence);
         }else{
             array_push($errMsg, "Почта либо пароль введены неверно!");
-        //     header('refresh:0;url='. BASE_URL);
-        //     echo '<script>
-        //     alert("Неверный логин или пароль!");
-        //   </script>';
         }
     }
 }else{

@@ -3,9 +3,8 @@
 include("path.php");
 include("controllers/users.php");
 
-session_start();
 if ($_SESSION["id"]) {
-    header("Location: ./pages/order.php");
+    header("Location:".BASE_URL."pages/order.php");
 }
 
 ?>
@@ -18,12 +17,8 @@ if ($_SESSION["id"]) {
 
     <body>
     <?php include("include/header.php"); ?>
-
-                    <?php
-                    require_once './pages/authBtn.php';
-
-                    ?>
-                    <p><?php echo $errMsg[0]?></p>
+    <div class="content">
+                    <p class="error-message"><?php echo $errMsg[0]?></p>
                    
                                                     
                                                 <form action="index.php" method="POST">
