@@ -3,7 +3,7 @@
 
 include("../path.php");
 include("../controllers/orders.php");
-
+unset($_SESSION["order"]);
 if (!$_SESSION["id"]) {
     header("Location: ". BASE_URL);
 }

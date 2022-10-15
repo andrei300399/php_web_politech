@@ -2,9 +2,9 @@
 
 include("path.php");
 include("controllers/users.php");
-
+unset($_SESSION["order"]);
 if ($_SESSION["id"]) {
-    header("Location:".BASE_URL."pages/order.php");
+    header("Location:".BASE_URL."pages/orders.php");
 }
 
 ?>
