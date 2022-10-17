@@ -91,14 +91,19 @@ function insert($table, $params){
         if ($i === 0){
             $coll = $coll . "$key";
             $mask = $mask . "'" ."$value" . "'";
+            
+            
         }else {
             $coll = $coll . ", $key";
             $mask = $mask . ", '" . "$value" . "'";
+            
+            
         }
         $i++;
     }
-
-    $sql = "INSERT INTO $table ($coll) VALUES ($mask)";
+    
+    $sql = "INSERT INTO `$table` ($coll) VALUES ($mask)";
+    echo $sql;
 
     $query = $pdo->prepare($sql);
     $query->execute($params);

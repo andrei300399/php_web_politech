@@ -45,9 +45,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
         if (array_key_exists($oneProduct["product"], $_SESSION["order"])) {
             $_SESSION["order"][$_POST["product"]]["amountProduct"] += $oneProduct["amountProduct"];
         } else {
-            $_SESSION["order"] = [
-                $_POST["product"] => $oneProduct
-            ];
+            $_SESSION["order"][$_POST["product"]] = $oneProduct;
+
         }
     }
 
@@ -63,5 +62,36 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
 
 // Код для оформления заказа
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
+
+
+    // $productId = trim($_SESSION["order"]);
+    $userId = $_SESSION["id"];
+    $orderDate = date('Y-m-d');
+    $orderCode = $userId."u".time();
+
+    $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode ]);
+    echo $inserted;
+
+    foreach ($_SESSION["order"] as $product) {
+        insert('productorder', ['idOrder' => $inserted ,'idProduct' => $product['product'],'amountProduct' => $product['amountProduct'] ]);
+    }
+
+    //$orderDate = trim($_SESSION["order"]);
+    // date_default_timezone_set('Europe/Moscow');
+    //print_r();
+    // $pass = trim($_POST['password']);
+    // $login = trim($_POST['login']);
+    // $pass = trim($_POST['password']);
+
+    // if($login === '' || $pass === '') {
+    //     array_push($errMsg, "Не все поля заполнены!");
+    // }else{
+    //     $existence = selectOne('user', ['login' => $login]);
+    //     if($existence && $pass == $existence['password']){
+    //         userAuth($existence);
+    //     }else{
+    //         array_push($errMsg, "Почта либо пароль введены неверно!");
+    //     }
+    // }
     
 }

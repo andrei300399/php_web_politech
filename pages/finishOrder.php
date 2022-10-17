@@ -24,7 +24,7 @@ if (!$_SESSION["id"]) {
         <form action="finishOrder.php" method="post">
 <p>
 <label for="deliviryDate">Дата доставки: </label>
-<input type="date" id="deliviryDate" name="trip-start"
+<input type="date" id="deliviryDate" name="deliviryDate"
        value="2018-07-22"
        min="2018-01-01" max="2222-12-31">
        </p>

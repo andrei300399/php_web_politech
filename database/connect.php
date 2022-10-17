@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Europe/Moscow');
+
 $driver = 'mysql';
 $host = 'localhost';
 $db_name = 'pit';
@@ -16,3 +18,4 @@ try{
 }catch (PDOException $i){
     die("Ошибка подключения к базе данных");
 }
+
