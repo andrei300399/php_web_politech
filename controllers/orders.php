@@ -60,3 +60,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
 }
 }
 
+
+// Код для оформления заказа
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
+    
+}

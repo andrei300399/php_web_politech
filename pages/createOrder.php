@@ -23,8 +23,8 @@ if (!$_SESSION["id"]) {
     <div class="content">
         <? print_r($_SESSION["order"])?>
     <p class="error-message"><?php echo $errMsg[0]?></p>
-        <form action="createOrder.php" method="post">
-
+        <form action="createOrder.php" method="post" >
+<p>
 <label for="CATEGORY-DROPDOWN">Категория нерудного материала: </label>
 <select name="category" id="category-dropdown">
                         <option selected>Категория нерудного материала:</option>
@@ -32,22 +32,25 @@ if (!$_SESSION["id"]) {
                             <option value="<?=$category['id']; ?>"><?=$category['name'];?></option>
                         <?php endforeach; ?>
 </select>
-
-
+</p>
+<p>
 <label for="SUBCATEGORY">Продукт выбранной категории: </label>
 <select id="sub-category-dropdown" name="product">
 <option selected>Продукт выбранной категории:</option>
 </select>
-
+</p>
+<p>
        <label for="amountProduct">Колисество товара в тоннах: </label>
 <input type="number" id="amountProduct" name="amountProduct"
        value="0"  min="0" max="1000"
 >
+                        </p>
+                        <p>
 <input type="submit" name="buttonAddProduct" value="Добавить товар в заказ">
 <?php if (isset($_SESSION['order'])): ?>
 <input type="button" onclick="location.href='http://projectkukhtoa/pages/finishOrder.php';" value="Закончить оформление заказа" />
 <?php endif; ?>
-       
+</p>
         </form>
         
     </div>

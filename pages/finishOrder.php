@@ -22,16 +22,23 @@ if (!$_SESSION["id"]) {
 
     <div class="content">
         <form action="finishOrder.php" method="post">
-
+<p>
 <label for="deliviryDate">Дата доставки: </label>
 <input type="date" id="deliviryDate" name="trip-start"
        value="2018-07-22"
        min="2018-01-01" max="2222-12-31">
+       </p>
+       <p>
 <label for="emailUser">Почта для чека: </label>
 <input type="email" id="emailUser" name="emailUser">
+</p>
+<p>
 <label for="carUser">Машина: </label>
 <input type="text" id="carUser" name="carUser">
-<input type="submit" name="buttonAddProduct" value="Оформить заказ">
+</p>
+<p>
+<input type="submit" name="buttonFinishOrder" value="Оформить заказ">
+</p>
 
        
         </form>

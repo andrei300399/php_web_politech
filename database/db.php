@@ -81,4 +81,29 @@ function selectOne($table, $params = []){
 
 //tt(selectAll('user'));
 
+// Запись в таблицу БД
+function insert($table, $params){
+    global $pdo;
+    $i = 0;
+    $coll = '';
+    $mask = '';
+    foreach ($params as $key => $value) {
+        if ($i === 0){
+            $coll = $coll . "$key";
+            $mask = $mask . "'" ."$value" . "'";
+        }else {
+            $coll = $coll . ", $key";
+            $mask = $mask . ", '" . "$value" . "'";
+        }
+        $i++;
+    }
+
+    $sql = "INSERT INTO $table ($coll) VALUES ($mask)";
+
+    $query = $pdo->prepare($sql);
+    $query->execute($params);
+    dbCheckError($query);
+    return $pdo->lastInsertId();
+}
+
 
