@@ -21,6 +21,7 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
 
     <div class="content">
+    <p class="error-message"><?php echo $errMsg[0]?></p>
         <form action="finishOrder.php" method="post">
 <p>
 <label for="deliviryDate">Дата доставки: </label>
@@ -31,6 +32,9 @@ if (!$_SESSION["id"]) {
        <p>
 <label for="emailUser">Почта для чека: </label>
 <input type="email" id="emailUser" name="emailUser">
+</p>
+<p>
+<input type="checkbox" name="mailCheck" value="mailCheck" />Отправить на почту
 </p>
 <p>
 <label for="carUser">Машина: </label>

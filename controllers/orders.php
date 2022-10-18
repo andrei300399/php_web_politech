@@ -10,6 +10,8 @@ $errMsg = [];
 
 $categorys = selectAll('category');
 
+$shortsuminfo = selectAll('shortsuminfo');
+
 function searchProduct($arr, $product){
     for($i=0;$i<=count($arr);$i++){
         if ($arr[$i]["product"]==$product) {
@@ -32,10 +34,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
         "product"=>$_POST["product"],
         "amountProduct"=>intval($_POST["amountProduct"]),
     ];
-
-    print_r(gettype($oneProduct["category"]));
-    print_r(gettype($oneProduct["product"]));
-    print_r(gettype($oneProduct["amountProduct"]));
 
     if (!isset($_SESSION["order"])) {
         $_SESSION["order"] = [
@@ -64,34 +62,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
 
 
-    // $productId = trim($_SESSION["order"]);
+
     $userId = $_SESSION["id"];
     $orderDate = date('Y-m-d');
     $orderCode = $userId."u".time();
+    $diliveryDate = $_POST['deliviryDate'];
 
-    $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode ]);
-    echo $inserted;
-
-    foreach ($_SESSION["order"] as $product) {
-        insert('productorder', ['idOrder' => $inserted ,'idProduct' => $product['product'],'amountProduct' => $product['amountProduct'] ]);
+    if ($diliveryDate < $orderDate) {
+        array_push($errMsg, "Дата доставки меньше текущей!");
+    } else {
+        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode ]);
+        echo $inserted;
+    
+        foreach ($_SESSION["order"] as $product) {
+            insert('productorder', ['idOrder' => $inserted ,'idProduct' => $product['product'],'amountProduct' => $product['amountProduct'], 'deliviryDate' => $diliveryDate ]);
+        }
+       
     }
 
-    //$orderDate = trim($_SESSION["order"]);
-    // date_default_timezone_set('Europe/Moscow');
-    //print_r();
-    // $pass = trim($_POST['password']);
-    // $login = trim($_POST['login']);
-    // $pass = trim($_POST['password']);
-
-    // if($login === '' || $pass === '') {
-    //     array_push($errMsg, "Не все поля заполнены!");
-    // }else{
-    //     $existence = selectOne('user', ['login' => $login]);
-    //     if($existence && $pass == $existence['password']){
-    //         userAuth($existence);
-    //     }else{
-    //         array_push($errMsg, "Почта либо пароль введены неверно!");
-    //     }
-    // }
-    
 }

@@ -47,3 +47,30 @@ footer {
    text-align: center;
    flex: 1;
 }
+
+.table {
+   display: table;
+   width: 100%;
+   border-collapse: collapse;
+}
+
+
+
+.table-row {
+   display: table-row;
+   /* display: flex;
+   /* justify-content: space-around; */
+   /*justify-content: center;
+   align-items: center; */
+
+}
+
+.table-cell {
+   /* border: 1px solid blue;
+   padding: 10px; */
+   display: table-cell;
+   text-align: center;
+   border: none;
+   border: 1px solid #ccc;
+   vertical-align: middle;
+}

@@ -1,6 +1,10 @@
-Текущая дата и время: 2022-06-13 20:44:30
-Имя: 123
-Почта: 213213@dasd
-Тип тура: Круиз
-Страна: Дания
-Итоговая сумма: 2260 руб.
+SELECT * from product as p inner join productorder as po on p.id=po.idProduct 
+inner join `order` as o on po.idOrder=o.id;
+
+SELECT idOrder, sum(p.price*po.amountProduct) from product as p inner join productorder as po on p.id=po.idProduct GROUP by po.idOrder
+
+
+CREATE or replace view allinfo as SELECT price, idOrder, po.amountProduct, o.code, o.orderDate, o.deliviryDate from product as p inner join productorder as po on p.id=po.idProduct 
+inner join `order` as o on po.idOrder=o.id GROUP by o.idUser;
+
+CREATE or replace view shortsuminfo as SELECT idOrder, sum(price*amountProduct) as sumorder, a.code, orderDate, deliviryDate from allinfo as a GROUP by idOrder
