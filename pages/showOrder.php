@@ -19,24 +19,24 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
 
     <div class="content">
-        <h2>Список заказов</h2>
-        <? print_r($shortsuminfo) ?>
+        <h2>Код заказа <?=$codeOrder; ?>. Список товаров.</h2>
+       
         <div class="table">
         <div class="table-row">
                                 <div class="table-cell">
                                 №
                                 </div>
                                 <div class="table-cell">
-                                Код заказа
+                                Наименование
                                 </div>
                                 <div class="table-cell">
-                                Сумма 
+                                Количество товара 
                                 </div>
                                 <div class="table-cell">
-                                Дата создания заказа
+                                Цена товара
                                 </div>
                                 <div class="table-cell">
-                                Дата доставки заказа
+                                Категория товара
                                 </div>
         </div>
         <?php foreach ($shortsuminfo as $key => $item): ?>
@@ -62,6 +62,7 @@ if (!$_SESSION["id"]) {
         <?php endforeach; ?>
     </div>
     </div>
+
 
     <?php include(SITE_ROOT."/include/footer.php"); ?>
     </body>

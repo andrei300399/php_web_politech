@@ -58,16 +58,11 @@ footer {
 
 .table-row {
    display: table-row;
-   /* display: flex;
-   /* justify-content: space-around; */
-   /*justify-content: center;
-   align-items: center; */
 
 }
 
 .table-cell {
-   /* border: 1px solid blue;
-   padding: 10px; */
+
    display: table-cell;
    text-align: center;
    border: none;
