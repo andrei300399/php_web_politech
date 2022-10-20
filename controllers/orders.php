@@ -84,9 +84,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
 
 // просмотр выбранного заказа
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order_id'])){
-    $order = selectOne('allinfo', ['idOrder' => $_GET['order_id']]);
+    $products = selectAll('allinfo', ['idOrder' => $_GET['order_id']]);
 
-    $codeOrder =  $order['code'];
+    //$codeOrder =  $order['code'];
     // $admin =  $user['admin'];
     // $username = $user['username'];
     // $email = $user['email'];

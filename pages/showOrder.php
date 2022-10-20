@@ -19,7 +19,7 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
 
     <div class="content">
-        <h2>Код заказа <?=$codeOrder; ?>. Список товаров.</h2>
+        <h2>Код заказа <?=$products[0]["code"]; ?>. Список товаров.</h2>
        
         <div class="table">
         <div class="table-row">
@@ -38,25 +38,29 @@ if (!$_SESSION["id"]) {
                                 <div class="table-cell">
                                 Категория товара
                                 </div>
+                                <div class="table-cell">
+                                Стоимость товара
+                                </div>
         </div>
-        <?php foreach ($shortsuminfo as $key => $item): ?>
+        <?php foreach ($products as $key => $product): ?>
                             <div class="table-row">
                                 <div class="table-cell">
                                 <?=$key+1; ?>
                                 </div>
                                 <div class="table-cell">
-                                <a href="showOrder.php?order_id=<?=$item['idOrder'];?>">
-                                <?=$item['code'] ;?>
-                                </a>
+                                <?=$product['productName'] ;?>
                                 </div>
                                 <div class="table-cell">
-                                <?=$item['sumorder']; ?>
+                                <?=$product['amountProduct']; ?>
                                 </div>
                                 <div class="table-cell">
-                                <?=$item['orderDate']; ?>
+                                <?=$product['price']; ?>
                                 </div>
                                 <div class="table-cell">
-                                <?=$item['deliviryDate']; ?>
+                                <?=$product['categoryName']; ?>
+                                </div>
+                                <div class="table-cell">
+                                <?=$product['sumProduct']; ?>
                                 </div>
         </div>
         <?php endforeach; ?>

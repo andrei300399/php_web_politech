@@ -46,12 +46,14 @@ footer {
 .content {
    text-align: center;
    flex: 1;
+   padding: 30px;
 }
 
 .table {
    display: table;
    width: 100%;
    border-collapse: collapse;
+
 }
 
 
@@ -68,4 +70,5 @@ footer {
    border: none;
    border: 1px solid #ccc;
    vertical-align: middle;
+
 }
