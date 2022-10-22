@@ -4,8 +4,7 @@
 include("../path.php");
 include("../controllers/orders.php");
 
-
-if (!$_SESSION["id"]) {
+if (!$_SESSION["id"] or !($_SESSION['order'])) {
     header("Location: ". BASE_URL);
 }
 
@@ -26,19 +25,26 @@ if (!$_SESSION["id"]) {
 <p>
 <label for="deliviryDate">Дата доставки: </label>
 <input type="date" id="deliviryDate" name="deliviryDate"
-       value="2018-07-22"
-       min="2018-01-01" max="2222-12-31">
+       value="2022-11-01"
+       min="2022-11-01" max="2222-12-31">
        </p>
-       <p>
-<label for="emailUser">Почта для чека: </label>
-<input type="email" id="emailUser" name="emailUser">
-</p>
+
 <p>
 <input type="checkbox" name="mailCheck" value="mailCheck" />Отправить на почту
+
+<span class="email">
+<label for="emailUser">Почта для чека: </label>
+<input type="email" id="emailUser" name="emailUser">
+</span>
 </p>
 <p>
-<label for="carUser">Машина: </label>
-<input type="text" id="carUser" name="carUser">
+<label for="carUser">Категория нерудного материала: </label>
+<select name="carUser" id="carUser">
+                        <option selected>Марка машины:</option>
+                        <?php foreach ($carMarks as $mark): ?>
+                            <option value="<?=$mark['id']; ?>"><?=$mark['name'];?></option>
+                        <?php endforeach; ?>
+</select>
 </p>
 <p>
 <input type="submit" name="buttonFinishOrder" value="Оформить заказ">

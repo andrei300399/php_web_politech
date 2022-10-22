@@ -21,7 +21,7 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
 
     <div class="content">
-        <? print_r($_SESSION["order"])?>
+    
     <p class="error-message"><?php echo $errMsg[0]?></p>
         <form action="createOrder.php" method="post" >
 <p>
@@ -48,7 +48,7 @@ if (!$_SESSION["id"]) {
                         <p>
 <input type="submit" name="buttonAddProduct" value="Добавить товар в заказ">
 <?php if (isset($_SESSION['order'])): ?>
-<input type="button" onclick="location.href='http://projectkukhtoa/pages/finishOrder.php';" value="Закончить оформление заказа" />
+<input type="button" name="buttonOpenFinish" onclick="location.href='http://projectkukhtoa/pages/finishOrder.php';" value="Закончить оформление заказа" />
 <?php endif; ?>
 </p>
         </form>
@@ -68,7 +68,7 @@ category_id: category_id
 },
 cache: false,
 success: function(result){
-   alert(result);
+   //alert(result);
 $("#sub-category-dropdown").html(result);
 
 }

@@ -20,47 +20,59 @@ if (!$_SESSION["id"]) {
 
     <div class="content">
         <h2>Список заказов</h2>
-        <? print_r($shortsuminfo) ?>
-        <div class="table">
-        <div class="table-row">
-                                <div class="table-cell">
+     
+        <table >
+        <tr>
+                                <td >
                                 №
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Код заказа
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Сумма 
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Дата создания заказа
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Дата доставки заказа
-                                </div>
-        </div>
+                                </td>
+                                <td >
+                                Номер машины
+                                </td>
+                                <td >
+                                Марка машины
+                                </td>
+        </tr>
         <?php foreach ($shortsuminfo as $key => $item): ?>
-                            <div class="table-row">
-                                <div class="table-cell">
+                            <tr >
+                                <td >
                                 <?=$key+1; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <a href="showOrder.php?order_id=<?=$item['idOrder'];?>">
                                 <?=$item['code'] ;?>
                                 </a>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$item['sumorder']; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$item['orderDate']; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$item['deliviryDate']; ?>
-                                </div>
-        </div>
+                                </td>
+                                <td >
+                                <?=$item['codeCar']; ?>
+                                </td>
+                                <td >
+                                <?=$item['mark']; ?>
+                                </td>
+        </tr>
         <?php endforeach; ?>
-    </div>
+    </table>
     </div>
 
     <?php include(SITE_ROOT."/include/footer.php"); ?>

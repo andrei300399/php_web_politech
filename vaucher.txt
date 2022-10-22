@@ -8,3 +8,9 @@ CREATE or replace view allinfo as SELECT price, p.name as productName, price*amo
 inner join `order` as o on po.idOrder=o.id inner join `caregory` as c on c.id=p.idCategory;
 
 CREATE or replace view shortsuminfo as SELECT idOrder, sum(sumProduct) as sumorder, a.code, orderDate, deliviryDate from allinfo as a GROUP by idOrder
+
+
+CREATE PROCEDURE `update_product_info`(IN `idOrd` INT(8), IN `idProd` INT(8), IN `amountProd` INT(8)) 
+NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN 
+INSERT INTO `productorder` (idOrder, idProduct, amountProduct) VALUES (idOrd, idProd, amountProd); 
+UPDATE product SET amountStorage = amountStorage - amountProduct WHERE id = idProd; END

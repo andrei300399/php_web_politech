@@ -19,52 +19,65 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
 
     <div class="content">
+        
         <h2>Код заказа <?=$products[0]["code"]; ?>. Список товаров.</h2>
        
-        <div class="table">
-        <div class="table-row">
-                                <div class="table-cell">
+        <table >
+        <tr >
+                                <td >
                                 №
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Наименование
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Количество товара 
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Цена товара
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Категория товара
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 Стоимость товара
-                                </div>
-        </div>
+                                </td>
+        </tr>
         <?php foreach ($products as $key => $product): ?>
-                            <div class="table-row">
-                                <div class="table-cell">
+                            <tr >
+                                <td >
                                 <?=$key+1; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$product['productName'] ;?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$product['amountProduct']; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$product['price']; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$product['categoryName']; ?>
-                                </div>
-                                <div class="table-cell">
+                                </td>
+                                <td >
                                 <?=$product['sumProduct']; ?>
-                                </div>
-        </div>
+                                </td>
+        </tr>
         <?php endforeach; ?>
-    </div>
+        <tr >
+                                <td colspan=5>
+                               Итого
+                                </td>
+                                <td >
+                                <?=$selectedOrder['sumorder']; ?>
+                                </td>
+        </tr>
+        </table>
+
+
+
+    
     </div>
 
 

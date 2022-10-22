@@ -36,6 +36,7 @@ footer {
 .footer-bottom {
    font-size: 20px;
    color: #7C0000;
+   padding: 10px;
 }
 
 .error-message {
@@ -49,7 +50,9 @@ footer {
    padding: 30px;
 }
 
-.table {
+
+
+table {
    display: table;
    width: 100%;
    border-collapse: collapse;
@@ -58,12 +61,7 @@ footer {
 
 
 
-.table-row {
-   display: table-row;
-
-}
-
-.table-cell {
+td {
 
    display: table-cell;
    text-align: center;
@@ -71,4 +69,17 @@ footer {
    border: 1px solid #ccc;
    vertical-align: middle;
 
+}
+
+.sum-cell {
+   position: absolute;
+   width: 100%;
+}
+
+.email {
+   opacity: 0;
+}
+
+input[name=mailCheck]:checked+.email {
+   opacity: 1;
 }

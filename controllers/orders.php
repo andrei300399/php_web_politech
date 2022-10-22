@@ -10,6 +10,8 @@ $errMsg = [];
 
 $categorys = selectAll('category');
 
+$carMarks = selectAll('mark');
+
 $shortsuminfo = selectAll('shortsuminfo');
 
 function searchProduct($arr, $product){
@@ -24,11 +26,16 @@ function searchProduct($arr, $product){
 
 // Код для формы создания заказа
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
+
+    $allEmpty = true;
     if ($_POST["category"] == "Категория нерудного материала:" || $_POST["product"] == "Продукт выбранной категории:") {
         array_push($errMsg, "Вы не выбрали категорию или подкатегорию!");
-    } else {
+    } else if($_POST["amountProduct"] <= 0) {
+        array_push($errMsg, "Количество товара должно быть больше 0!");
+    }
+    
+    else {
 
-    print_r($_POST);
     $oneProduct = [
         "category"=>$_POST["category"], 
         "product"=>$_POST["product"],
@@ -48,12 +55,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
         }
     }
 
-    print_r(selectOne('product', ['id' => $oneProduct["product"]])["amountStorage"]);
+    
     if($_SESSION["order"][$_POST["product"]]["amountProduct"]  > selectOne('product', ['id' => $oneProduct["product"]])["amountStorage"] ) {
         $_SESSION["order"][$_POST["product"]]["amountProduct"] -= $oneProduct["amountProduct"];
         array_push($errMsg, "На складе осталось только ".(selectOne('product', ['id' => $oneProduct["product"]])["amountStorage"] - $_SESSION["order"][$_POST["product"]]["amountProduct"])." товара!");
         
-    }    
+    } 
+    
+    //проверить что в заказе есть продуктв с количеством больше 0
+    foreach ($_SESSION["order"] as $product) {
+        if ($product["amountProduct"] != 0) {
+            $allEmpty = false;
+        }
+    }
+    if ($allEmpty) {
+        unset($_SESSION["order"]);
+    }
 }
 }
 
@@ -66,17 +83,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
     $userId = $_SESSION["id"];
     $orderDate = date('Y-m-d');
     $orderCode = $userId."u".time();
-    $diliveryDate = $_POST['deliviryDate'];
+    $deliviryDate = $_POST['deliviryDate'];
 
-    if ($diliveryDate < $orderDate) {
+    if ($deliviryDate < $orderDate) {
         array_push($errMsg, "Дата доставки меньше текущей!");
-    } else {
-        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode ]);
+    } 
+    
+    else {
+        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode, 'deliviryDate' => $deliviryDate]);
         echo $inserted;
     
         foreach ($_SESSION["order"] as $product) {
-            insert('productorder', ['idOrder' => $inserted ,'idProduct' => $product['product'],'amountProduct' => $product['amountProduct'], 'deliviryDate' => $diliveryDate ]);
+            //insert('productorder', ['idOrder' => $inserted ,'idProduct' => $product['product'],'amountProduct' => $product['amountProduct']]);
+            callProcedure('update_product_info', [$inserted ,$product['product'],$product['amountProduct']]);
+
         }
+        header('location: ' . BASE_URL);
        
     }
 
@@ -85,10 +107,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
 // просмотр выбранного заказа
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order_id'])){
     $products = selectAll('allinfo', ['idOrder' => $_GET['order_id']]);
-
-    //$codeOrder =  $order['code'];
-    // $admin =  $user['admin'];
-    // $username = $user['username'];
-    // $email = $user['email'];
+    $selectedOrder = selectOne('shortsuminfo', ['idOrder' => $_GET['order_id']]);
+    
 }
 

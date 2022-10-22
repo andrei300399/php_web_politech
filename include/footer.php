@@ -9,6 +9,6 @@ include(__DIR__ ."/../path.php");?>
     </ul>
     <?php endif; ?>
     <div class="footer-bottom">
-        &copy; myblog.com | Designed by Andrievskii
+        &copy; myblog.com | Designed by Andrei Kukhto
     </div>
 </footer>

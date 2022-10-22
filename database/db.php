@@ -111,6 +111,34 @@ function insert($table, $params){
     return $pdo->lastInsertId();
 }
 
+function callProcedure($nameProcedure, $params){
+    global $pdo;
+    $i = 0;
+    $coll = '';
+    foreach ($params as $item) {
+        if ($i === 0){
+            $coll = $coll . "$item";
+            
+            
+            
+        }else {
+            $coll = $coll . ", $item";
+            
+            
+            
+        }
+        $i++;
+    }
+    
+    $sql = "CALL `$nameProcedure` ($coll)";
+    echo $sql;
+
+    $query = $pdo->prepare($sql);
+    $query->execute($params);
+    dbCheckError($query);
+    return $pdo->lastInsertId();
+}
+
 
 
 
