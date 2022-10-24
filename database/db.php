@@ -116,6 +116,9 @@ function callProcedure($nameProcedure, $params){
     $i = 0;
     $coll = '';
     foreach ($params as $item) {
+        if (!is_numeric($item)){
+            $item = "'".$item."'";
+        }
         if ($i === 0){
             $coll = $coll . "$item";
             
@@ -134,9 +137,9 @@ function callProcedure($nameProcedure, $params){
     echo $sql;
 
     $query = $pdo->prepare($sql);
-    $query->execute($params);
+    $query->execute();
     dbCheckError($query);
-    return $pdo->lastInsertId();
+    return $query->fetchAll();
 }
 
 

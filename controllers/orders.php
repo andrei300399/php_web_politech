@@ -84,21 +84,51 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
     $orderDate = date('Y-m-d');
     $orderCode = $userId."u".time();
     $deliviryDate = $_POST['deliviryDate'];
+    $markCar = $_POST['carUser'];
+    $isEmail = $_POST['mailCheck'];
+    $emailUser = $_POST['emailUser'];
+    $amountProduct = 0;
+
+    foreach ($_SESSION["order"] as $product) {
+        $amountProduct+= $product["amountProduct"];
+    }
+
+    $carOrder = callProcedure('test_pr', [$deliviryDate, $markCar, $amountProduct]);
+    print_r($carOrder);
+    $marks="";
 
     if ($deliviryDate < $orderDate) {
         array_push($errMsg, "Дата доставки меньше текущей!");
-    } 
+    } else if (count($carOrder) == 0){
+        array_push($errMsg, "На дату нет свободных машин!");
+
+    } else if (count($carOrder) > 0 && !array_key_exists("id_car", $carOrder[0])) {
+        echo "Вошли";
+        foreach ($carOrder as $mark) {
+            $marks = $marks.$mark["mark"]." ";
+        }
+        array_push($errMsg, "На дату свободны только марки машин: $marks!");
+        print_r($marks);
+    }
     
     else {
-        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode, 'deliviryDate' => $deliviryDate]);
+        print_r($carOrder);
+        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode, 'deliviryDate' => $deliviryDate, "idCar"=> $carOrder[0]["id_car"]]);
         echo $inserted;
     
         foreach ($_SESSION["order"] as $product) {
-            //insert('productorder', ['idOrder' => $inserted ,'idProduct' => $product['product'],'amountProduct' => $product['amountProduct']]);
+           
             callProcedure('update_product_info', [$inserted ,$product['product'],$product['amountProduct']]);
 
         }
-        header('location: ' . BASE_URL);
+        $volumeCar = selectOne('car', ['id' => $carOrder[0]["id_car"]])["volume"];
+        $timesCar = ceil($amountProduct/ $volumeCar);
+        header('refresh:0;url='. BASE_URL);
+        echo '<script>
+        alert("Машина приедет'. $timesCar.' раз");
+      </script>';
+
+       // header('location: ' . BASE_URL);
        
     }
 

@@ -26,7 +26,7 @@ if (!$_SESSION["id"] or !($_SESSION['order'])) {
 <label for="deliviryDate">Дата доставки: </label>
 <input type="date" id="deliviryDate" name="deliviryDate"
        value="2022-11-01"
-       min="2022-11-01" max="2222-12-31">
+       min="<?=date('Y-m-d');?>" max="2222-12-31">
        </p>
 
 <p>
@@ -42,7 +42,7 @@ if (!$_SESSION["id"] or !($_SESSION['order'])) {
 <select name="carUser" id="carUser">
                         <option selected>Марка машины:</option>
                         <?php foreach ($carMarks as $mark): ?>
-                            <option value="<?=$mark['id']; ?>"><?=$mark['name'];?></option>
+                            <option value="<?=$mark['name']; ?>"><?=$mark['name'];?></option>
                         <?php endforeach; ?>
 </select>
 </p>
