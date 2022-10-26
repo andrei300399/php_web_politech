@@ -121,14 +121,50 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
             callProcedure('update_product_info', [$inserted ,$product['product'],$product['amountProduct']]);
 
         }
-        $volumeCar = selectOne('car', ['id' => $carOrder[0]["id_car"]])["volume"];
+        $deliviryCar = selectOne('car', ['id' => $carOrder[0]["id_car"]]);
+        $volumeCar = $deliviryCar["volume"];
         $timesCar = ceil($amountProduct/ $volumeCar);
+
+
+
+//отправка на почту
+$shortsuminfo2 = selectAll('shortsuminfo');
+$currentOrder;
+foreach ($shortsuminfo2 as $key => $item){
+    if ($item['code']==$orderCode) {
+        $currentOrder = $item;
+    } 
+}
+$user = selectOne('user', ['id' => $userId]);
+$fd = fopen(__DIR__."\\..\\basket.txt", 'w') or die("не удалось создать файл");
+$str = "Дата заказа: ".$orderDate."\nИмя: ".$user["firstName"]." Фамилия: ".$user["lastName"]."\nДата доставки: ".$deliviryDate."\nСумма заказа: ".$currentOrder["sumorder"];
+fwrite($fd, $str);
+fclose($fd);
+
+$to      = $emailUser;
+$subject = 'Заказ на карьере';
+$message = $str;
+$headers = 'From: webmaster@example.com' . "\r\n" .
+    'Reply-To: webmaster@example.com' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+
+mail($to, $subject, $message, $headers);
+
+
+
+
+
+
+
+
+
         header('refresh:0;url='. BASE_URL);
         echo '<script>
-        alert("Машина приедет'. $timesCar.' раз");
-      </script>';
+      alert("Марка машины: '.$markCar.'.\nКоличество заездов: '. $timesCar.'.\nДата доставки: '.$deliviryDate.'");
+        </script>';
 
-       // header('location: ' . BASE_URL);
+
+    //    header('location: ' . BASE_URL);
        
     }
 
