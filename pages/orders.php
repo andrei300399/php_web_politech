@@ -17,7 +17,6 @@ if (!$_SESSION["id"]) {
     </head>
     <body>
     <?php include(SITE_ROOT."/include/header.php"); ?>
-
     <div class="content">
         <h2>Список заказов</h2>
      

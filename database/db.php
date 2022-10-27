@@ -103,7 +103,6 @@ function insert($table, $params){
     }
     
     $sql = "INSERT INTO `$table` ($coll) VALUES ($mask)";
-    echo $sql;
 
     $query = $pdo->prepare($sql);
     $query->execute($params);
@@ -134,7 +133,6 @@ function callProcedure($nameProcedure, $params){
     }
     
     $sql = "CALL `$nameProcedure` ($coll)";
-    echo $sql;
 
     $query = $pdo->prepare($sql);
     $query->execute();

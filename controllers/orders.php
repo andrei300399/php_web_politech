@@ -24,7 +24,7 @@ function searchProduct($arr, $product){
 }
 
 
-// Код для формы создания заказа
+// Код для формы добавления продукта
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonAddProduct'])){
 
     $allEmpty = true;
@@ -94,7 +94,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
     }
 
     $carOrder = callProcedure('test_pr', [$deliviryDate, $markCar, $amountProduct]);
-    print_r($carOrder);
     $marks="";
 
     if ($deliviryDate < $orderDate) {
@@ -103,19 +102,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonFinishOrder'])){
         array_push($errMsg, "На дату нет свободных машин!");
 
     } else if (count($carOrder) > 0 && !array_key_exists("id_car", $carOrder[0])) {
-        echo "Вошли";
         foreach ($carOrder as $mark) {
             $marks = $marks.$mark["mark"]." ";
         }
         array_push($errMsg, "На дату свободны только марки машин: $marks!");
-        print_r($marks);
+
     }
     
     else {
         print_r($carOrder);
-        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode, 'deliviryDate' => $deliviryDate, "idCar"=> $carOrder[0]["id_car"]]);
-        echo $inserted;
-    
+        $inserted = insert('order', ['idUser' => $userId ,'orderDate' => $orderDate,'code' => $orderCode, 'deliviryDate' => $deliviryDate, "idCar"=> $carOrder[0]["id_car"]]);  
         foreach ($_SESSION["order"] as $product) {
            
             callProcedure('update_product_info', [$inserted ,$product['product'],$product['amountProduct']]);
@@ -137,34 +133,31 @@ foreach ($shortsuminfo2 as $key => $item){
 }
 $user = selectOne('user', ['id' => $userId]);
 $fd = fopen(__DIR__."\\..\\basket.txt", 'w') or die("не удалось создать файл");
-$str = "Дата заказа: ".$orderDate."\nИмя: ".$user["firstName"]." Фамилия: ".$user["lastName"]."\nДата доставки: ".$deliviryDate."\nСумма заказа: ".$currentOrder["sumorder"];
+$str = "Дата заказа: ".$orderDate."
+Имя: ".$user["firstName"]." Фамилия: ".$user["lastName"]."
+Дата доставки: ".$deliviryDate."
+Сумма заказа (руб): ".$currentOrder["sumorder"]."
+Количество заездов: ". $timesCar."
+Марка машины: ". $markCar."
+Количество товара (т): ". $amountProduct;
 fwrite($fd, $str);
 fclose($fd);
 
 $to      = $emailUser;
 $subject = 'Заказ на карьере';
 $message = $str;
-$headers = 'From: webmaster@example.com' . "\r\n" .
-    'Reply-To: webmaster@example.com' . "\r\n" .
+$headers = 'From: andrei060656@yandex.ru' . "\r\n" .
+    'Reply-To: andrei060656@yandex.ru' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
 
-mail($to, $subject, $message, $headers);
-
-
-
-
-
-
+    $success = mail($to, $subject, $message, $headers);
 
 
 
         header('refresh:0;url='. BASE_URL);
         echo '<script>
-      alert("Марка машины: '.$markCar.'.\nКоличество заездов: '. $timesCar.'.\nДата доставки: '.$deliviryDate.'");
+      alert("Марка машины: '.$markCar.'.\nКоличество заездов: '. $timesCar.'.\nДата доставки: '.$deliviryDate.'.\nСтоимость: '.$currentOrder["sumorder"].' руб.");
         </script>';
-
-
-    //    header('location: ' . BASE_URL);
        
     }
 

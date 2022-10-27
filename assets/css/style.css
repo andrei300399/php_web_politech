@@ -9,12 +9,12 @@ nav {
    text-align: center;
 }
 
-a:hover {
+/* a:hover {
    color: #7C0000;
-}
+} */
 
 header {
-   background-color: rgb(150, 219, 219);
+   background: linear-gradient(to bottom right, rgb(85, 85, 94), rgb(180, 172, 173));
 }
 
 nav ul {
@@ -28,14 +28,14 @@ footer ul li {
 }
 
 footer {
-   background-color: rgb(33, 153, 153);
+   background: linear-gradient(to bottom right, rgb(85, 85, 94), rgb(180, 172, 173));
    text-align: center;
 
 }
 
 .footer-bottom {
    font-size: 20px;
-   color: #7C0000;
+   color: #ffffff;
    padding: 10px;
 }
 
@@ -82,4 +82,59 @@ td {
 
 input[name=mailCheck]:checked+.email {
    opacity: 1;
+}
+
+nav li a,
+input[type=submit],
+input[type=button] {
+   background: #23A6F0;
+   min-width: 187px;
+   border-radius: 37px;
+   display: inline-block;
+   text-decoration: none;
+   color: #ffffff;
+   letter-spacing: 0.2px;
+   font-weight: bold;
+   font-size: 14px;
+   line-height: 32px;
+   text-align: center;
+}
+
+nav li a:hover,
+input[type=submit],
+input[type=button] {
+   background: #1b97df;
+   cursor: pointer;
+}
+
+input[type=text] {
+   min-width: 187px;
+   letter-spacing: 0.2px;
+   font-weight: bold;
+   font-size: 16px;
+}
+
+footer li a {
+   min-width: 187px;
+   text-decoration: none;
+   color: #ffffff;
+   letter-spacing: 0.2px;
+   font-weight: bold;
+   font-size: 14px;
+   line-height: 32px;
+   text-align: center;
+}
+
+footer li a:hover {
+   text-decoration: underline;
+}
+
+h1 {
+
+   color: #ffffff;
+   letter-spacing: 0.2px;
+   font-weight: bold;
+   font-size: 34px;
+   line-height: 32px;
+   text-align: center;
 }
