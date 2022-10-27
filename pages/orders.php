@@ -8,6 +8,10 @@ if (!$_SESSION["id"]) {
     header("Location: ". BASE_URL);
 }
 
+
+
+
+
 ?>
 <html>
     <head>
@@ -19,6 +23,11 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
     <div class="content">
         <h2>Список заказов</h2>
+       
+        
+        <div>
+  <canvas id="myChart" width=600 height=300></canvas>
+</div>
      
         <table >
         <tr>
@@ -75,6 +84,45 @@ if (!$_SESSION["id"]) {
     </div>
 
     <?php include(SITE_ROOT."/include/footer.php"); ?>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+  const labels = [
+    <?=implode(',',array_reverse($orders30dates));?>
+  ];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Суммы последних 10 заказов',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [<?=implode(',',array_reverse($orders30cnt));?>],
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+                responsive: false,
+                scales: {
+            x: {
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 90,
+                    minRotation: 90
+                }
+            }
+        }
+            }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
     </body>
 
 

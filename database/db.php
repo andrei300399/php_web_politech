@@ -134,6 +134,7 @@ function callProcedure($nameProcedure, $params){
     
     $sql = "CALL `$nameProcedure` ($coll)";
 
+
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);

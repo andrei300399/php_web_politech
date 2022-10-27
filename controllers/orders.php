@@ -12,7 +12,16 @@ $categorys = selectAll('category');
 
 $carMarks = selectAll('mark');
 
-$shortsuminfo = selectAll('shortsuminfo');
+$shortsuminfo = selectAll('shortsuminfo', ["idUser" => $_SESSION['id']]);
+
+$orders30 = callProcedure('last30order', [$_SESSION['id']]);
+
+$orders30dates =[];
+$orders30cnt =[];
+foreach ($orders30 as $order) {
+    array_push($orders30cnt, $order["sumorder"]);
+    array_push($orders30dates, str_replace('-','',$order["orderDate"]));
+}
 
 function searchProduct($arr, $product){
     for($i=0;$i<=count($arr);$i++){
