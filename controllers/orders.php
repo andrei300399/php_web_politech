@@ -179,3 +179,18 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order_id'])){
     
 }
 
+//код отмены заказа
+
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buttonCancel'])){
+    $products = selectAll('allinfo', ['idOrder' => $_POST['hiddenIdOrder']]);
+    $selectedOrder = selectOne('shortsuminfo', ['idOrder' => $_POST['hiddenIdOrder']]);
+    if (date('Y-m-d') > $selectedOrder["deliviryDate"]) {
+        array_push($errMsg, "Заказ доставлен! Отмена не возможна!");
+        
+    } else {
+        $deleted = deleteOne('order', ['id' => $_POST['hiddenIdOrder']]);
+        header("Location: ". BASE_URL);
+    }
+   
+}
+

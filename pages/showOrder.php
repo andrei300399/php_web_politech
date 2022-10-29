@@ -19,9 +19,16 @@ if (!$_SESSION["id"]) {
     <?php include(SITE_ROOT."/include/header.php"); ?>
 
     <div class="content">
-        
+    <p class="error-message"><?php echo $errMsg[0]?></p>
+        <div class="heading_order">
         <h2>Код заказа <?=$products[0]["code"]; ?>. Список товаров.</h2>
-       
+        <form action="showOrder.php" method="post">
+            <input type="hidden" name="hiddenIdOrder" value=<?=$products[0]["idOrder"]?>>
+                                  <input type="submit" name="buttonCancel" value="Отменить">
+                                </form>
+        </div>
+        
+
         <table >
         <tr >
                                 <td >

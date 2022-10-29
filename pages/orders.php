@@ -25,8 +25,12 @@ if (!$_SESSION["id"]) {
         <h2>Список заказов</h2>
        
         
-        <div>
-  <canvas id="myChart" width=600 height=300></canvas>
+        <div class="chartBTN">
+          <button class="btnAdd" onclick="hideChart()">Показать/скрыть график</button>
+          <div id="chart">
+          <canvas id="myChart" width=600 height=300></canvas>
+          </div>
+ 
 </div>
      
         <table >
@@ -52,6 +56,7 @@ if (!$_SESSION["id"]) {
                                 <td >
                                 Марка машины
                                 </td>
+
         </tr>
         <?php foreach ($shortsuminfo as $key => $item): ?>
                             <tr >
@@ -123,6 +128,7 @@ if (!$_SESSION["id"]) {
     config
   );
 </script>
+<script src="../assets/script.js"></script>
     </body>
 
 
